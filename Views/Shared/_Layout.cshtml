@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CVApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CVApp.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Smooth scrolling for navbar and back-to-top */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Body themes */
+        body.dark-body {
+            background-color: #0f0f14;
+            color: #e4e4e7;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body.light-body {
+            background-color: #ffffff;
+            color: #1a1a22;
+        }
+
+        /* Cards */
+        .card-dark {
+            background-color: #1a1a22;
+            border: 1px solid #2a2a35;
+            border-radius: 12px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        body.light-body .card-dark {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+        }
+
+        .card-dark:hover {
+            border-color: #ff4da6;
+            transform: translateY(-5px);
+        }
+
+        /* Buttons */
+        .btn-accent {
+            background-color: #ff4da6;
+            border: none;
+            color: white;
+        }
+
+            .btn-accent:hover {
+                background-color: #e04394;
+            }
+
+        /* Accent colors & links */
+        .accent {
+            color: #ff4da6;
+        }
+
+        a {
+            color: #ff4da6;
+            text-decoration: none;
+        }
+
+            a:hover {
+                color: #e04394;
+            }
+
+        /* Skill pills */
+        .skill-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            background-color: #2a2a35;
+            border: 1px solid #444;
+            font-size: 14px;
+        }
+
+            .skill-pill:hover {
+                border-color: #ff4da6;
+            }
+
+        body.light-body .skill-pill {
+            background-color: #eaeaea;
+            border: 1px solid #ccc;
+            color: #1a1a22;
+        }
+
+        /* Back-to-top button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Profile picture */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* circular */
+            border: 4px solid #ff4da6; /* pink accent */
+            object-fit: cover;
+        }
+
+        /* Sections spacing */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-dark {
+            background-color: #1a1a22;
+        }
+    </style>
+</head>
+<body class="dark-body">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark mb-3" style="background-color:#1a1a22;">
+            <div class="container-fluid">
+                <a class="navbar-brand accent" asp-controller="CV" asp-action="Index">Lefa.dev</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <button id="themeToggle" class="btn btn-outline-light ms-2">Toggle Theme</button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link text-light" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#leadership">Leadership</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#achievements">Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#references">References</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <!-- Back-to-top button -->
+    <a href="#hero" id="backToTop" class="btn btn-accent">↑ Back to Top</a>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - CVApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Back-to-top button behavior
+        window.onscroll = function() {
+            const btn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+
+        // Theme toggle with localStorage
+        const toggle = document.getElementById("themeToggle");
+
+        // Load theme from localStorage
+        if(localStorage.getItem("theme") === "light") {
+            document.body.classList.add("light-body");
+            document.body.classList.remove("dark-body");
+        }
+
+        toggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-body");
+            document.body.classList.toggle("light-body");
+
+            if(document.body.classList.contains("light-body")) {
+                localStorage.setItem("theme", "light");
+            } else {
+                localStorage.setItem("theme", "dark");
+            }
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

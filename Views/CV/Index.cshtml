@@ -1,0 +1,117 @@
+﻿@model CVApp.Models.ViewModel.CVViewModel
+
+<!-- HERO SECTION -->
+<section class="section text-center" id="hero">
+    <img src="~/images/profile.jpeg" alt="Profile Picture" class="profile-pic mb-3" />
+    <h1 class="display-4 accent">@Model.Profile.FullName</h1>
+    <h4>@Model.Profile.Title</h4>
+    <p class="mt-4">@Model.Profile.About</p>
+
+    <div class="mt-4">
+        <a href="@Model.Profile.GitHubUrl" target="_blank" class="btn btn-accent me-2">GitHub</a>
+        <a href="@Model.Profile.LinkedInUrl" target="_blank" class="btn btn-outline-light">LinkedIn</a>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-dark" id="skills">
+    <h2 class="accent text-center mb-5">Technical Skills</h2>
+
+    @foreach (var skill in Model.Skills)
+    {
+        <div class="mb-4">
+            <h5>@skill.Category</h5>
+            @foreach (var item in skill.Items)
+            {
+                <span class="skill-pill">@item</span>
+            }
+        </div>
+    }
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+    <h2 class="accent text-center mb-5">Projects</h2>
+
+    <div class="row">
+        @foreach (var project in Model.Projects)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card-dark">
+                    <h4 class="accent">@project.Title</h4>
+                    <p>@project.Description</p>
+                    <p><strong>Technologies:</strong> @project.Technologies</p>
+                    <a href="@project.GitHubLink" target="_blank">View Code</a>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section section-dark" id="education">
+    <h2 class="accent text-center mb-5">Education</h2>
+
+    <div class="card-dark">
+        <h4>@Model.Education.Qualification</h4>
+        <p>@Model.Education.Institution</p>
+        <p>@Model.Education.CompletionDate</p>
+
+        <h6 class="mt-3">Relevant Coursework:</h6>
+        @foreach (var module in Model.Education.RelevantModules)
+        {
+            <span class="skill-pill">@module</span>
+        }
+    </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="section" id="leadership">
+    <h2 class="accent text-center mb-5">Leadership</h2>
+
+    @foreach (var role in Model.LeadershipRoles)
+    {
+        <div class="card-dark mb-4">
+            <h4>@role.Role</h4>
+            <p><strong>@role.Organization</strong> | @role.Duration</p>
+
+            <ul>
+                @foreach (var responsibility in role.Responsibilities)
+                {
+                    <li>@responsibility</li>
+                }
+            </ul>
+        </div>
+    }
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="section section-dark">
+    <h2 class="accent text-center mb-5">Achievements / Certifications</h2>
+    <p class="text-center">Currently completing short courses to enhance skills and certifications (2026).</p>
+</section>
+
+<!-- REFERENCES -->
+<section class="section section-dark" id="references">
+    <h2 class="accent text-center mb-5">References</h2>
+
+    @foreach (var reference in Model.References)
+    {
+        <div class="card-dark mb-3 text-center">
+            <p>@reference.Name @if(!string.IsNullOrEmpty(reference.ContactInfo)){
+            <span>| @reference.ContactInfo</span>
+        }
+</p>
+    </div>
+        }
+</section>
+
+<!-- CONTACT -->
+<section class="section section-dark text-center" id="contact">
+    <h2 class="accent mb-4">Contact</h2>
+    <p>Email: <a href="mailto:@Model.Profile.Email">@Model.Profile.Email</a></p>
+    <p>
+        <a href="@Model.Profile.GitHubUrl" target="_blank">GitHub</a> |
+        <a href="@Model.Profile.LinkedInUrl" target="_blank">LinkedIn</a>
+    </p>
+</section>
