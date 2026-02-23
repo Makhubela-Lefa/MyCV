@@ -2,7 +2,7 @@
 
 <!-- HERO SECTION -->
 <section class="section text-center" id="hero">
-    <img src="~/images/profile.jpeg" alt="Profile Picture" class="profile-pic mb-3" />
+    <img src="~/images/profile.jpeg" asp-append-version="true" alt="Profile Picture" class="profile-pic mb-3" />
     <h1 class="display-4 accent">@Model.Profile.FullName</h1>
     <h4>@Model.Profile.Title</h4>
     <p class="mt-4">@Model.Profile.About</p>
