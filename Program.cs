@@ -20,15 +20,16 @@ namespace CVApp
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles(); // This serves wwwroot files
+
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.MapStaticAssets();
+            // Standard controller route
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=CV}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                pattern: "{controller=CV}/{action=Index}/{id?}");
 
             app.Run();
         }
